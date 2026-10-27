@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2eee5" />
+    <title>Pokédex | First Generation</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <p class="page-header__eyebrow">Kanto · No. 001–151</p>
+      <h1 class="page-header__title">
+        <svg class="page-header__pokeball" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="#fffdf8" stroke="#20251f" stroke-width="6" />
+          <path d="M4 50a46 46 0 0 1 92 0z" fill="#d84d3f" stroke="#20251f" stroke-width="6" stroke-linejoin="round" />
+          <path d="M4 50h92" stroke="#20251f" stroke-width="6" />
+          <circle cx="50" cy="50" r="14" fill="#fffdf8" stroke="#20251f" stroke-width="6" />
+          <circle cx="50" cy="50" r="5" fill="#20251f" />
+        </svg>
+        Pokédex
+      </h1>
+      <p class="page-header__intro">A collection of the first generation.</p>
+    </header>
+
+    <main class="pokedex">
+      <section class="pokedex__discovery" aria-label="Discover Pokémon">
+        <p class="pokedex__discovery-label">Your Kanto adventure starts here</p>
+        <p id="estado" class="pokedex__status" role="status" aria-live="polite">
+          Pick a Pokémon to discover its type, stats, and more.
+        </p>
+      </section>
+
+      <form class="pokemon-search" role="search">
+        <label class="pokemon-search__label" for="buscador">
+          Search by name or number
+        </label>
+        <input
+          id="buscador"
+          class="pokemon-search__input"
+          type="search"
+          placeholder="e.g. pikachu or 25"
+          autocomplete="off"
+        />
+      </form>
+
+      <section
+        id="tablero"
+        class="pokemon-grid"
+        aria-label="First-generation Pokémon"
+      ></section>
+
+      <nav class="pokemon-pagination" aria-label="Pokémon pagination">
+        <button
+          id="pagina-anterior"
+          type="button"
+          aria-label="Previous page"
+          disabled
+        >
+          &larr;
+        </button>
+        <span id="pagina-actual" aria-live="polite"></span>
+        <button
+          id="pagina-siguiente"
+          type="button"
+          aria-label="Next page"
+          disabled
+        >
+          &rarr;
+        </button>
+      </nav>
+    </main>
+
+    <dialog
+      id="pokemon-modal"
+      class="pokemon-modal"
+      aria-labelledby="modal-name"
+    >
+      <button
+        class="pokemon-modal__close"
+        type="button"
+        aria-label="Close details"
+      >
+        &times;
+      </button>
+      <div id="modal-content" class="pokemon-modal__content"></div>
+    </dialog>
+
+    <script type="module" src="./assets/js/module.js"></script>
+  </body>
+</html>
