@@ -30,7 +30,7 @@ or use the Live Server extension in VS Code.
 
 ## What I practiced
 
-- Fetching and combining data from multiple API requests
+- Fetching API data on demand, one page at a time, with caching
 - Building DOM elements safely, without `innerHTML`
 - Event delegation and pagination logic
 - Writing accessible, responsive interfaces

@@ -1,22 +1,44 @@
 const API_URL = "https://pokeapi.co/api/v2/pokemon";
 
-export async function obtenerPrimeros151() {
-  const respuestaLista = await fetch(`${API_URL}?limit=151`);
-  if (!respuestaLista.ok) {
+export async function obtenerListaPokemon() {
+  const respuesta = await fetch(`${API_URL}?limit=151`);
+  console.log(respuesta);
+  if (!respuesta.ok) {
     throw new Error("Could not load the Pokémon list.");
   }
 
-  const lista = await respuestaLista.json();
+  //   const data = await respuesta.json();
+  //   const results = data.results;
 
-  return Promise.all(
-    lista.results.map(async (elemento) => {
-      const respuestaPokemon = await fetch(elemento.url);
-      if (!respuestaPokemon.ok) {
-        throw new Error(`Could not load data for ${elemento.name}.`);
-      }
-      return respuestaPokemon.json();
-    }),
-  );
+  const { results } = await respuesta.json();
+  console.log(results);
+
+  return results
+    .map(({ url }) => ({
+      id: Number(url.split("/").filter(Boolean).pop()),
+    }))
+    .filter(({ id }) => id % 2 !== 0);
+}
+
+const detallesEnCache = new Map();
+
+export function obtenerPokemon(id) {
+  if (!detallesEnCache.has(id)) {
+    const peticion = fetch(`${API_URL}/${id}`)
+      .then((respuesta) => {
+        if (!respuesta.ok) {
+          throw new Error(`Could not load data for Pokémon ${id}.`);
+        }
+        return respuesta.json();
+      })
+      .catch((error) => {
+        detallesEnCache.delete(id);
+        throw error;
+      });
+    detallesEnCache.set(id, peticion);
+  }
+
+  return detallesEnCache.get(id);
 }
 
 export function crearTarjeta(pokemon) {
